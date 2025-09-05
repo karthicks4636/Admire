@@ -104,7 +104,7 @@
 @import url("./vendor/regular.css");
 @import url("./vendor/solid.css");
 @import url("./vendor/swiper-bundle.min.css");
-
+@import url("./vendor/animate.min.css");
 
 /* ================== 02 Root Variables ================== */
 
@@ -131,7 +131,9 @@
   --box-shadow-bottom-right-wide: 3px 3px 10px 0px rgba(255, 0, 238, 0.44);
   --global-font: "Plus Jakarta Sans", sans-serif;
   --global-border-radius: 25px 25px 25px 25px;
-
+  --animation-normal: 1.25s;
+  --animation-slow: 2s;
+  --animation-fast: 0.75s;
 
   /* 2.2 Font Weight Variables */
   --font-weight-normal: 400;
@@ -190,7 +192,73 @@
   --error-color: #e63946;
 }
 
-/* ================== 03. Base Styles (Animations Removed) ================== */
+/* ================== 03. Keyframes Animations ================== */
+
+@property --progress {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes load {
+  to {
+    --progress: var(var(--value));
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+    transform-origin: center;
+    border-width: 0px;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(1.7, 1.7, 1.8);
+    transform-origin: center;
+    border-width: 13px;
+  }
+}
+
+@keyframes menu-animation {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.04) translateY(300%);
+    transform: scale(0.04) translateY(300%);
+  }
+  40% {
+    -webkit-transform: scale(0.04) translateY(0);
+    transform: scale(0.04) translateY(0);
+    -webkit-transition: ease-out;
+    transition: ease-out;
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: scale(0.02) translateY(0);
+    transform: scale(0.02) translateY(0);
+  }
+  61% {
+    opacity: 1;
+    -webkit-transform: scale(0.04) translateY(0);
+    transform: scale(0.04) translateY(0);
+  }
+  99.9% {
+    opacity: 1;
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 100%;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+    height: 100%;
+    padding-bottom: 0;
+    border-radius: 0;
+  }
+}
 
 /* ================== 04. Base Styles ================== */
 
@@ -405,7 +473,7 @@ body.lightmode .form select {
 
 .form input:autofill,
 .form input:autofill:focus {
-
+  transition: background-color 5000s ease-in-out;
   -webkit-text-fill-color: var(--primary);
 }
 
@@ -539,60 +607,34 @@ body.lightmode .form select {
   -webkit-text-fill-color: var(--accent-color-5) !important;
 }
 
-/* ================== 08. Logo ================== */
-
-.main-logo {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  z-index: 1000;
-  background-color: var(--accent-color-4);
-  border: 1px solid var(--accent-color-3);
-  border-radius: var(--global-border-radius);
-  padding: 15px 20px;
-  backdrop-filter: blur(10px);
-}
-
-.main-logo img {
-  height: 40px;
-  width: auto;
-}
-
-/* ================== 09. Navbar ================== */
+/* ================== 08. Navbar ================== */
 
 .navbar-wrapper {
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  z-index: 1000;
-  width: auto;
-  height: auto;
-  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  width: 100%;
+  height: 100%;
+  padding: 30px 30px 30px 30px;
 }
 
 .navbar {
   position: relative;
   display: flex;
-  width: auto;
+  width: 100%;
   z-index: 3;
-  padding: 15px 20px;
+  padding: 1em;
   border: 1px solid var(--accent-color-3);
   background-color: var(--accent-color-4);
+  padding: 15px 30px 15px 30px;
   border-radius: var(--global-border-radius);
-  backdrop-filter: blur(10px);
 }
 
 .navbar-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  width: auto;
-  gap: 15px;
-}
-
-.navbar .logo-container {
-  display: none;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .logo-container {
@@ -609,7 +651,7 @@ body.lightmode .form select {
   background-color: var(--accent-color);
   color: var(--primary);
   box-shadow: none;
-
+  transition: all 0.3s ease;
   order: 1;
 }
 .navbar-nav .nav-link:focus {
@@ -628,14 +670,13 @@ body.lightmode .form select {
 
 .navbar-nav {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  margin: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .navbar-collapse {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .nav-link:hover,
@@ -697,7 +738,7 @@ body.lightmode .form select {
   height: 100%;
   background: var(--secondary);
   color: var(--primary);
-
+  transition: transform 0.4s ease-in-out;
   z-index: 1000;
   overflow-y: auto;
   max-height: 100vh;
@@ -731,7 +772,7 @@ body.lightmode .form select {
   font-size: var(--font-size-base);
   cursor: pointer;
   padding: 8px 18px;
-
+  transition: all 0.4s;
 }
 
 .close-btn:hover {
@@ -756,7 +797,7 @@ body.lightmode .form select {
   padding: 10px 10px 10px 10px;
   display: block;
   border-radius: 5px;
-
+  transition: 0.3s;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
   text-transform: capitalize;
@@ -783,7 +824,7 @@ body.lightmode .form select {
   cursor: pointer;
   padding: 0px 18px;
   border-radius: 24px;
-
+  transition: transform 0.3s ease;
 }
 .sidebar-dropdown-btn:hover {
   color: var(--accent-color);
@@ -795,7 +836,7 @@ body.lightmode .form select {
   padding-left: 20px;
   max-height: 0;
   overflow: hidden;
-
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -806,7 +847,7 @@ body.lightmode .form select {
   padding-bottom: 10px;
 }
 .below-dropdown {
-
+  transition: margin-top 0.1s ease-in-out;
   margin-top: 0px;
 }
 
@@ -833,7 +874,7 @@ body.lightmode .form select {
     var(--accent-color-3) 0%,
     var(--accent-color-4) 50%
   );
-
+  transition: transform 0.4s ease-in-out;
   z-index: 1000;
   overflow-y: auto;
   max-height: 100vh;
@@ -868,7 +909,7 @@ body.lightmode .form select {
   cursor: pointer;
   border: 1px solid var(--accent-color);
   padding: 12px 15px 12px 15px;
-
+  transition: all 0.4s;
 }
 
 .close-btn-second:hover {
@@ -882,7 +923,7 @@ body.lightmode .form select {
   color: var(--primary);
   height: auto;
   border: none;
-
+  transition: all 0.3s;
 }
 
 .content-edit svg {
@@ -983,7 +1024,7 @@ body.lightmode #newsletterForm input:autofill:focus {
 
 .btn-accent {
   fill: var(--accent-color-2);
-
+  transition: all 0.6s;
   background-color: var(--accent-color-4);
 }
 
@@ -1004,7 +1045,7 @@ body.lightmode .keep-dark .btn-accent {
   text-decoration: none;
   align-self: center;
   width: 100%;
-
+  transition: all 0.6s;
 }
 
 .btn-title a,
@@ -1030,7 +1071,7 @@ body.lightmode .keep-dark .btn-accent {
   text-align: center;
   padding: 17px 32px;
   border-radius: 30px !important;
-
+  transition: all 0.15s ease-in-out;
   border-radius: 25px;
   line-height: var(--line-height-tight);
   letter-spacing: 1px;
@@ -1567,9 +1608,9 @@ body.lightmode .title-heading {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 0px 0px;
   align-items: center;
-  width: auto;
+  width: 30%;
 }
 
 .navbar-action-button {
@@ -1594,7 +1635,7 @@ body.lightmode .title-heading {
   width: 270px;
   height: auto;
   padding: 5px 5px 5px 5px;
-
+  transition: all 0.6s;
 }
 
 body.lightmode .navbar-icon-wrapper {
@@ -1670,7 +1711,7 @@ body.lightmode .navbar-icon-wrapper {
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-
+  transition: left 0.4s ease-in-out;
   z-index: 4;
 }
 
@@ -1687,7 +1728,7 @@ body.lightmode .navbar-icon-wrapper {
   width: 100%;
   height: 100vh;
   background: var(--accent-color-5);
-
+  transition: left 0.4s ease-in-out;
   z-index: 4;
   cursor: url("../image/svg/cross-out.svg"), pointer;
 }
@@ -1854,8 +1895,8 @@ body.lightmode .navbar-icon-wrapper {
   z-index: 3;
   display: none;
   overflow: hidden;
-
-
+  animation: menu-animation 0.8s ease-out forwards;
+  -webkit-animation: menu-animation 0.8s ease-out forwards;
 }
 
 .search-overlay.active {
@@ -1871,8 +1912,8 @@ body.lightmode .navbar-icon-wrapper {
   margin: 20px;
   border-radius: 50%;
   opacity: 0;
-
-
+  -webkit-transition: all 1s ease 0.8s;
+  transition: all 1s ease 0.8s;
   -webkit-transform: translateY(-500px);
   transform: translateY(-500px);
   z-index: 1001;
@@ -1937,7 +1978,7 @@ body.lightmode .navbar-icon-wrapper {
   );
   color: var(--primary);
   box-shadow: var(--box-shadow-top-left);
-
+  transition: all 0.6s;
 }
 
 .about-spacer {
@@ -2021,7 +2062,7 @@ body.lightmode .navbar-icon-wrapper {
   );
   color: var(--primary);
   box-shadow: var(--box-shadow-top-left);
-
+  transition: all 0.6s;
 }
 
 .card-expertise.card-expertise-counter {
@@ -2281,7 +2322,7 @@ body.lightmode .card-partner {
 
 .partnership-item {
   opacity: 0.6;
-
+  transition: all 0.6s;
 }
 
 .partnership-item:hover {
@@ -2376,7 +2417,7 @@ body.lightmode .card-partner {
   );
   border-radius: var(--global-border-radius);
   box-shadow: var(--box-shadow-top-left);
-
+  transition: all 0.3s;
 }
 
 .service-icon:hover {
@@ -2638,7 +2679,7 @@ body.lightmode .case-studies-content::before {
   border-style: solid;
   border-color: var(--accent-color);
   transform: rotateZ(0deg);
-
+  transition: all 0.3s ease;
 }
 
 .cs-component:hover {
@@ -2808,7 +2849,7 @@ body.lightmode .case-studies-content::before {
 .icon-box {
   aspect-ratio: 1/1;
   line-height: 21px;
-
+  transition: all 0.5s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2845,7 +2886,7 @@ body.lightmode .case-studies-content::before {
   overflow: hidden;
   border: 1px solid var(--accent-color-3);
   height: 100%;
-
+  transition: all 0.4s ease;
 }
 
 .card-blog .card-body {
@@ -2877,7 +2918,7 @@ body.lightmode .case-studies-content::before {
   overflow: hidden;
   max-width: 100%;
   height: auto;
-
+  transition: all 0.4s ease;
 }
 
 .blog-image img {
@@ -2921,7 +2962,7 @@ body.lightmode .case-studies-content::before {
 
 .recent-post .image-container {
   max-width: 30%;
-
+  transition: all 0.3s ease;
 }
 
 .recent-post .image-container:hover {
@@ -2938,7 +2979,7 @@ body.lightmode .case-studies-content::before {
 .read-more {
   font-size: var(--font-size-base);
   color: var(--accent-color);
-
+  transition: 0.3s ease;
 }
 
 .read-more:hover {
@@ -2956,7 +2997,7 @@ body.lightmode .case-studies-content::before {
   font-weight: var(--font-weight-medium);
   line-height: 1.5em;
   color: var(--primary);
-
+  transition: all 0.3s;
   cursor: pointer;
 }
 
@@ -2969,7 +3010,7 @@ body.lightmode .case-studies-content::before {
   font-weight: var(--font-weight-medium);
   line-height: 1.5em;
   color: var(--text-color);
-
+  transition: all 0.3s;
   cursor: pointer;
 }
 
@@ -3099,7 +3140,7 @@ body.lightmode .case-studies-content::before {
 .pricing-highlights a,
 .pricing-highlights i {
   color: var(--text-color);
-
+  transition: all 0.3s ease;
 }
 
 .pricing-highlights:hover a,
@@ -3171,7 +3212,7 @@ body.lightmode .case-studies-content::before {
 
 .benefit a {
   color: var(--text-color);
-
+  transition: all 0.3s ease;
 }
 
 .benefit a:hover {
@@ -3590,7 +3631,7 @@ body.lightmode .newsletter-layout {
   color: var(--accent-color);
   font-size: var(--font-size-lg);
   text-decoration: none;
-
+  transition: color 0.3s ease-in-out;
 }
 
 .breadcrumb a:hover {
@@ -3642,7 +3683,7 @@ body.lightmode .newsletter-layout {
   align-items: center;
   justify-content: center;
   text-align: center;
-
+  transition: all 0.3s ease-in-out;
 }
 
 /* 41.2 Stars */
@@ -3669,7 +3710,7 @@ body.lightmode .newsletter-layout {
   width: 45px;
   min-height: 45px;
   line-height: 20px;
-
+  transition: all 0.5s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3786,7 +3827,7 @@ body.lightmode .newsletter-layout {
   color: var(--text-color);
   font-size: var(--font-size-base);
   font-weight: 700;
-
+  transition: all 0.2s;
   line-height: var(--line-height-loose);
 }
 
@@ -3837,7 +3878,7 @@ body.lightmode .newsletter-layout {
   gap: 10px;
   align-items: center;
   color: var(--accent-color);
-
+  transition: all 0.3s;
 }
 
 .link-wrapper:hover a,
@@ -3889,7 +3930,7 @@ body.lightmode .newsletter-layout {
     var(--accent-color-4) 70%
   );
   box-shadow: var(--box-shadow-top-left);
-
+  transition: all 0.3s;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -4012,7 +4053,7 @@ body.lightmode .newsletter-layout {
   );
   color: var(--primary);
   box-shadow: var(--box-shadow-bottom-right);
-
+  transition: all 0.3s;
 }
 
 .card-chooseus-cta:hover {
@@ -4051,7 +4092,7 @@ body.lightmode .newsletter-layout {
   color: var(--primary);
   font-size: var(--font-size-4xl);
   aspect-ratio: 1/1;
-
+  transition: all 0.3s ease-in-out;
 }
 
 .request-loader:hover {
@@ -4145,7 +4186,7 @@ body.lightmode .newsletter-layout {
 
 .detail-list {
   color: var(--secondary);
-
+  transition: all 0.3s ease;
 }
 
 .detail-list:hover {
@@ -4321,7 +4362,7 @@ body.lightmode .accordion-button:not(.collapsed)::after {
   color: var(--primary);
   font-size: var(--font-size-lg);
   font-weight: 700;
-
+  transition: all 0.2s;
 }
 
 .single-service-list a:hover {
@@ -4391,7 +4432,23 @@ body.lightmode .cta-service-banner::before {
   height: 100px;
 }
 
-/* ================== 54. Animations Removed ================== */
+/* ================== 54. Animate Components ================== */
+
+.animate-box {
+  opacity: 0;
+}
+
+.animated {
+  animation-duration: var(--animation-normal);
+}
+
+.animated.fast {
+  animation-duration: var(--animation-fast);
+}
+
+.animated.slow {
+  animation-duration: var(--animation-slow);
+}
 
 /* ================== 55. CustomText Container Components ================== */
 
@@ -4447,7 +4504,7 @@ body.lightmode .cta-service-banner::before {
   font-size: var(--font-size-base);
   font-weight: 500;
   color: var(--text-color);
-
+  transition: all 0.2s;
 }
 
 .footer-list a:hover {
@@ -4542,7 +4599,7 @@ body.lightmode .cta-service-banner::before {
   font-size: var(--font-size-base);
   font-weight: 500;
   color: var(--text-color);
-
+  transition: all 0.2s;
   line-height: var(--line-height-loose);
 }
 
@@ -4730,21 +4787,6 @@ body.lightmode .cta-service-banner::before {
   a {
     font-size: var(--font-size-sm);
   }
-  .navbar-wrapper {
-    top: 20px;
-    right: 20px;
-  }
-  
-  .main-logo {
-    top: 20px;
-    left: 20px;
-    padding: 10px 15px;
-  }
-  
-  .main-logo img {
-    height: 30px;
-  }
-  
   .navbar {
     position: relative;
   }
@@ -5394,7 +5436,7 @@ body.lightmode .cta-service-banner::before {
 } /* 
 Dynamic Text Animation */
 .cursor {
-
+  animation: blink 1s infinite;
   color: var(--accent-color, #ff00f0);
 }
 
@@ -5415,7 +5457,7 @@ Dynamic Text Animation */
   display: inline-block;
 }
 * Dynamic Text Animation Styles */ .cursor {
-
+  animation: blink 1s infinite;
   color: #ff00f0;
   font-weight: bold;
 }
