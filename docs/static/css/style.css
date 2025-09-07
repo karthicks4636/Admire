@@ -179,7 +179,7 @@
 
 .lightmode {
   --primary: #1f1f1f;
-  --secondary: #fffafa;
+  --secondary: #fff;
   --text-color: #4a4a4a;
   --accent-color: #ff00ee;
   --accent-color-2: #000000;
@@ -2343,7 +2343,7 @@ body.lightmode .card-partner {
   z-index: 1;
 }
 
-.card-service-wrapper::before {
+/* .card-service-wrapper::before {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -2357,7 +2357,7 @@ body.lightmode .card-partner {
   height: 100%;
   inset: 0;
   z-index: -1;
-}
+} */
 
 .service-title {
   color: var(--primary);
@@ -2376,7 +2376,7 @@ body.lightmode .card-partner {
 }
 
 .card-service {
-  background-color: var(--accent-color-4);
+  /* background-color: var(--accent-color-4); */
   border-radius: var(--global-border-radius);
   padding: 30px 30px 30px 30px;
   border: 1px solid var(--accent-color-3);
@@ -2389,9 +2389,9 @@ body.lightmode .card-partner {
   height: 420px;
 }
 
-.col:nth-child(even) .card-service {
+/* .col:nth-child(even) .card-service {
   background-color: var(--accent-color-4);
-}
+} */
 
 /* .service-icon-wrapper {
   display: flex;
