@@ -130,7 +130,7 @@
   --box-shadow-top-left-wide: -3px -3px 10px 0px rgba(255, 0, 238, 0.44);
   --box-shadow-bottom-right-wide: 3px 3px 10px 0px rgba(255, 0, 238, 0.44);
   --global-font: "Plus Jakarta Sans", sans-serif;
-  --global-border-radius: 25px 25px 25px 25px;
+  --global-border-radius: 30px;
   --animation-normal: 1.25s;
   --animation-slow: 2s;
   --animation-fast: 0.75s;
@@ -2386,13 +2386,14 @@ body.lightmode .card-partner {
   text-align: start;
   gap: 30px;
   z-index: 1;
+  height: 420px;
 }
 
 .col:nth-child(even) .card-service {
   background-color: var(--accent-color-4);
 }
 
-.service-icon-wrapper {
+/* .service-icon-wrapper {
   display: flex;
   flex-direction: column;
   width: 100px;
@@ -2401,7 +2402,7 @@ body.lightmode .card-partner {
   background-color: var(--secondary);
   justify-content: center;
   align-items: center;
-}
+} */
 
 .service-icon {
   display: flex;
@@ -2410,19 +2411,19 @@ body.lightmode .card-partner {
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     at top left,
     var(--accent-color-3) 0%,
     var(--accent-color-4) 70%
-  );
-  border-radius: var(--global-border-radius);
-  box-shadow: var(--box-shadow-top-left);
-  transition: all 0.3s;
+  ); */
+  /* border-radius: var(--global-border-radius); */
+  /* box-shadow: var(--box-shadow-top-left); */
+  /* transition: all 0.3s; */
 }
 
-.service-icon:hover {
+/* .service-icon:hover {
   box-shadow: var(--box-shadow-bottom-right);
-}
+} */
 
 .service-icon img {
   width: 60%;

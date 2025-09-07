@@ -449,12 +449,23 @@ function initSubmitNewsletter() {
 // Dynamic Text Typewriter Effect
 function initDynamicText() {
   const dynamicTexts = [
-    "Digital Marketing, Creative Posters, and Smart Web Development",
-    "SEO Optimization, Social Media, and Brand Strategy", 
-    "E-commerce Solutions, Mobile Apps, and Custom Software",
-    "Content Marketing, PPC Campaigns, and Analytics",
-    "Web Design, Graphic Design, and Digital Innovation"
-  ];
+  "Digital Marketing",
+  "Creative Posters",
+  "Smart Web Development",
+  "SEO Optimization",
+  "Social Media",
+  "Brand Strategy",
+  "E-commerce Solutions",
+  "Mobile Apps",
+  "Custom Software",
+  "Content Marketing",
+  "PPC Campaigns",
+  "Analytics",
+  "Web Design",
+  "Graphic Design",
+  "Digital Innovation"
+];
+
   
   const dynamicElement = document.getElementById('dynamic-text');
   if (!dynamicElement) {
@@ -467,7 +478,7 @@ function initDynamicText() {
   let isDeleting = false;
   const typeSpeed = 80;
   const deleteSpeed = 40;
-  const pauseTime = 2000;
+  const pauseTime = 800;
   
   function typeWriter() {
     const currentText = dynamicTexts[currentTextIndex];
